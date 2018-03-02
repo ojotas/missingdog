@@ -109,7 +109,4 @@ class Pet
         $this->found = $found;
     }
 
-
-
-
 }

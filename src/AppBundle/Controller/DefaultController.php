@@ -31,14 +31,11 @@ class DefaultController extends Controller
      */
     public function createAction(Request $request)
 {
-    
-    
     $pet = new Pet();
     $form = $this->createForm(PetType::class, $pet);
     $form->handleRequest($request);
     
-    if ($form->isSubmitted() && $form->isValid())
-    {
+    if ($form->isSubmitted() && $form->isValid()){
         $em = $this->getDoctrine()->getManager();
         $pet->setFound(false);
         $em->persist($pet);
@@ -50,8 +47,6 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl(
             'pet_list'           
                 ));
-        //return new Response('Saved new pet with id '.$pet->getId());
-        //dump($form->getData());die;
     }
     
     return $this->render(':AppBundle:new.html.twig', [
@@ -68,7 +63,6 @@ class DefaultController extends Controller
      */
     public function myGridAction()
     {
-        
         $source = new Entity('AppBundle:Pet');
         $grid = $this->get('grid');
         $grid->setSource($source);
@@ -87,7 +81,6 @@ class DefaultController extends Controller
         
         
         $grid->addRowAction($rowAction);
-        //$grid->addRowAction(new RowAction('Mark as found', 'pet_found'));
         $grid->addRowAction(new RowAction('Delete', 'pet_delete', true));
         $grid->setActionsColumnSize(150);
         
@@ -103,16 +96,12 @@ class DefaultController extends Controller
      */
     public function deleteAction(Pet $entity)
     {
-        
-        
-            
-            $em = $this->getDoctrine()->getManager();
-            $pet = $em->getRepository('AppBundle:Pet')->findById($entity->getId());
-            //var_dump($pet[0]);die;
-            $em->remove($pet[0]);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $pet = $em->getRepository('AppBundle:Pet')->findById($entity->getId());
+        $em->remove($pet[0]);
+        $em->flush();
 
-            $this->addFlash(
+        $this->addFlash(
             'notice',
             'Pet deleted'
         );
@@ -129,17 +118,13 @@ class DefaultController extends Controller
      */
     public function foundAction(Pet $entity)
     {
-        
-        
-            
-            $em = $this->getDoctrine()->getManager();
-            $pet = $em->getRepository('AppBundle:Pet')->findById($entity->getId());
-            //var_dump($pet[0]);die;
-            $pet[0]->setFound(true);
-            $em->persist($pet[0]);
-            $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $pet = $em->getRepository('AppBundle:Pet')->findById($entity->getId());
+        $pet[0]->setFound(true);
+        $em->persist($pet[0]);
+        $em->flush();
 
-            $this->addFlash(
+        $this->addFlash(
             'notice',
             'Pet found!'
         );
@@ -148,17 +133,4 @@ class DefaultController extends Controller
                 ));
     }
     
-    /**
-     * @Route("/show", name="show")
-     * @Template("fields.html.twig")
-     * 
-     */
-    public function myReact()
-    {
-        
-        
-        
-        return $this->render(':AppBundle:fields.html.twig');
-        
-    }
 }
