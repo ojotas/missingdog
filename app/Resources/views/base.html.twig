@@ -1,0 +1,28 @@
+{% extends 'MopaBootstrapBundle::base.html.twig' %}
+
+{% block title %}Missing pets{% endblock title %}
+{% block head_style %}
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/bootstrap.css') }}" />
+    <link type="text/css" rel="stylesheet" href="{{ asset('bundles/app/css/grid.css') }}" />
+{% endblock %}
+{% block body_start %}
+  
+<div class="container">    
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+           
+            <a class="navbar-brand" href="{{ path('pet_homepage') }}" title="Index">Missing Dog</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"></li>
+              <li><a href="{{ path('pet_list') }}" title="Browse pets">Browse Pets</a></li>
+              <li><a href="{{ path('pet_new')}}" title="New pet">New Pet</a></li>
+            </ul> 
+          </div>   
+        </div> 
+    </nav> 
+            
+</div>
+{% endblock %}
